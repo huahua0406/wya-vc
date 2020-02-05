@@ -12,17 +12,17 @@
 		>
 			<template #prepend>
 				<slot name="prepend">
-					<vcm-icon type="search" class="vcm-input-search__icon"/>
+					<vcm-icon type="search" class="vcm-input-search__icon" />
 				</slot>
 			</template>
 		</vcm-input>
 		<!-- TODO, 待优化, isFocus隐藏，造成点击事件无效 -->
 		<div 
-			v-if="isFocus" 
+			v-if="isFocus || showCancel" 
 			class="vcm-input-search__btn"
 			@touchend="handleCancel"
 		>
-			{{ cancelTxt }}
+			{{ cancelText }}
 		</div>
 	</div>
 </template>
@@ -41,13 +41,17 @@ export default {
 	},
 	mixins: [inputSearchMixin, inputEventMixin],
 	props: {
-		cancelTxt: {
+		cancelText: {
 			type: String,
 			default: '取消'
 		},
 		type: {
 			type: String,
 			default: 'search'
+		},
+		showCancel: { // 强制显示取消
+			type: Boolean,
+			default: false,
 		}
 	},
 	methods: {
@@ -60,24 +64,24 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/index.scss';
+@import '../../style/vars.scss';
 
 /**
  * TODO
  */
 $block: vcm-input-search;
-$size: 56px;
+$size: 54px;
 
 @include block($block) {
 	display: flex;
 	align-items: center;
 	height: $size;
-	padding: 12px 12px;
+	padding: 10px;
 	.vcm-input {
-		height: 32px;
+		height: 34px;
 	}
 	.vcm-input__prepend {
-		line-height: 32px;
+		line-height: 34px;
 	}
 	@include element(content) {
 		background: white;
@@ -89,7 +93,8 @@ $size: 56px;
 			padding-bottom: 5px;
 			font-size: 14px;
 			&::placeholder {
-				
+				font-size: 15px;
+				color: #999;
 			}
 		}
 		@include element(icon){
@@ -107,7 +112,7 @@ $size: 56px;
 		padding-left: 8px;
 		height: $size;
 		line-height: $size;
-		font-size: 14px;
+		font-size: 15px;
 		color: #333;
 		text-align: right;
 		white-space: nowrap;

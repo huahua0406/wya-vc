@@ -12,9 +12,15 @@
 			<div>菜单(右){{ visible }}</div>
 			<template #list>
 				<vc-dropdown-menu>
-					<vc-dropdown-item name="1">驴打滚</vc-dropdown-item>
-					<vc-dropdown-item name="2">炸酱面</vc-dropdown-item>
-					<vc-dropdown-item name="3">豆汁儿</vc-dropdown-item>
+					<vc-dropdown-item name="1">
+						驴打滚
+					</vc-dropdown-item>
+					<vc-dropdown-item name="2">
+						炸酱面
+					</vc-dropdown-item>
+					<vc-dropdown-item name="3">
+						豆汁儿
+					</vc-dropdown-item>
 
 					<!-- 高级嵌套 -->
 					<vc-dropdown 
@@ -29,9 +35,15 @@
 						<span @click.stop>冰糖葫芦</span>
 						<template #list>
 							<vc-dropdown-menu>
-								<vc-dropdown-item name="1">驴打滚</vc-dropdown-item>
-								<vc-dropdown-item name="2">炸酱面</vc-dropdown-item>
-								<vc-dropdown-item name="3">豆汁儿</vc-dropdown-item>
+								<vc-dropdown-item name="1">
+									驴打滚
+								</vc-dropdown-item>
+								<vc-dropdown-item name="2">
+									炸酱面
+								</vc-dropdown-item>
+								<vc-dropdown-item name="3">
+									豆汁儿
+								</vc-dropdown-item>
 							</vc-dropdown-menu>
 						</template>
 					</vc-dropdown>
@@ -46,14 +58,38 @@
 						portal-class-name="is-padding-none"
 						placement="right"
 					>
-						<span @click.stop>北京烤鸭</span>
+						<span @click.stop>北京烤鸭popover</span>
 						<template #content>
-							<vc-dropdown-item name="1">驴打滚</vc-dropdown-item>
-							<vc-dropdown-item name="2">炸酱面</vc-dropdown-item>
-							<vc-dropdown-item name="3">豆汁儿</vc-dropdown-item>
-							<vc-dropdown-item name="4">冰糖葫芦</vc-dropdown-item>
+							<vc-dropdown-item name="1">
+								驴打滚
+							</vc-dropdown-item>
+							<vc-dropdown-item name="2">
+								炸酱面
+							</vc-dropdown-item>
+							<vc-dropdown-item name="3">
+								豆汁儿
+							</vc-dropdown-item>
+							<vc-dropdown-item name="4">
+								冰糖葫芦
+							</vc-dropdown-item>
 						</template>
 					</vc-popover>
+
+					<!-- 高级嵌套需要v-model -->
+					<vc-popconfirm
+						v-model="visiblePopconfirm"
+						:portal="false"
+						:trigger="trigger"
+						tag="li" 
+						class="vc-dropdown-item"
+						placement="right"
+						title="确定删除吗？"
+					>
+						<span>北京烤鸭popconfirm</span>
+						<template #content>
+							<vc-input v-model="inputV" />
+						</template>
+					</vc-popconfirm>
 				</vc-dropdown-menu>	
 				
 				<!-- indeterminate 测试slot同步 -->
@@ -62,28 +98,38 @@
 						:indeterminate="indeterminate"
 						:value="checkAll"
 						@click.prevent.native="handleCheckAll"
-					>全选</vc-checkbox>
+					>
+						全选
+					</vc-checkbox>
 				</div>
 				<vc-checkbox-group v-model="checkAllGroup" @change="handleCheckChange">
-					<vc-checkbox label="香蕉"/>
-					<vc-checkbox label="苹果"/>
-					<vc-checkbox label="西瓜"/>
+					<vc-checkbox label="香蕉" />
+					<vc-checkbox label="苹果" />
+					<vc-checkbox label="西瓜" />
 				</vc-checkbox-group>
 				<vc-button 
 					style="margin-left: 100px" 
 					@click="handleClose"
-				>关闭</vc-button>
+				>
+					关闭
+				</vc-button>
 			</template>
 		</vc-dropdown>
 
-		<vc-button style="margin-left: 100px" @click="handleVisible">visible: {{ visible }}</vc-button>
-		<vc-button style="margin-left: 100px" @click="handleTrigger">trigger {{ trigger }}</vc-button>
+		<vc-button style="margin-left: 100px" @click="handleVisible">
+			visible: {{ visible }}
+		</vc-button>
+		<vc-button style="margin-left: 100px" @click="handleTrigger">
+			trigger {{ trigger }}
+		</vc-button>
 	</div>
 </template>
 <script>
 import Dropdown from '..';
 import Popover from '../../popover';
+import Popconfirm from '../../popconfirm';
 import Button from '../../button';
+import Input from '../../input';
 import Checkbox from '../../checkbox';
 
 export default {
@@ -94,18 +140,22 @@ export default {
 		'vc-dropdown-item': Dropdown.Item,
 		'vc-button': Button,
 		'vc-popover': Popover,
+		'vc-popconfirm': Popconfirm,
 		'vc-checkbox': Checkbox,
 		'vc-checkbox-group': Checkbox.Group,
+		'vc-input': Input,
 	},
 	data() {
 		return {
 			visible: false,
 			visiblePopover: false,
+			visiblePopconfirm: false,
 			trigger: 'hover',
 
 			indeterminate: true,
 			checkAll: false,
-			checkAllGroup: ['香蕉', '西瓜']
+			checkAllGroup: ['香蕉', '西瓜'],
+			inputV: ''
 		};
 	},
 	computed: {

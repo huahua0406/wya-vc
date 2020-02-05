@@ -8,14 +8,14 @@
 		class="vc-btn"
 		@click="handleClick"
 	>
-		<vc-icon v-if="!!icon" :type="icon"/>
+		<vc-icon v-if="!!icon" :type="icon" />
 		<vc-spin 
-			v-if="loading" 
+			v-if="isLoading" 
 			:size="12" 
 			:foreground="type === 'default' ? '#ccc' : '#fff'" 
 			class="vc-btn__loading"
 		/>
-		<span v-if="hasSlot" ref="slot"><slot/></span>
+		<span v-if="hasSlot" ref="slot"><slot /></span>
 	</vc-debounce-click>
 </template>
 <script>
@@ -73,7 +73,7 @@ export default {
 	data() {
 		return {
 			hasSlot: true,
-			loading: false
+			isLoading: false
 		};
 	},
 	computed: {
@@ -101,13 +101,13 @@ export default {
 			let fn = click && click(e, callback);
 
 			if (fn && fn.then) {
-				this.loading = true;
+				this.isLoading = true;
 				fn.then((res) => {
 					return res;
 				}).catch((res) => {
 					return Promise.reject(res);
 				}).finally(() => {
-					this.loading = false;
+					this.isLoading = false;
 				});
 			}
 		}
@@ -115,7 +115,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import '../style/index.scss';
+@import '../style/vars.scss';
 // 定义默认属性
 
 $primary-color: #5495f6;

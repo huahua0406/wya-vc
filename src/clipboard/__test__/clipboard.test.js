@@ -1,16 +1,28 @@
-import Vue from 'vue';
-import Copy from '..';
+import { createVue, createComponent, wait, destroyVM } from '@tests/helper';
+import Clipboard from '..';
 
+describe('Clipboard', () => {
+	it('basic', () => {
+		expect(!!Clipboard).to.equal(true);
+	});
 
+	it('tag is div', () => {
+		const vm = createComponent(Clipboard, {
+			tag: 'span',
+		});
+		expect(vm.$el.tagName).to.equal('SPAN');
 
-describe('Copy', () => {
-	test('测试传递属性', () => {
-		const component = createComponent(
-			Copy, 
-			{
-				value: 'Hello'
-			}
-		);
-		expect(component.value).toBe('Hello');
+		destroyVM(vm);
+	});
+
+	it('should show toast when click trigger', () => {
+		const vm = createComponent(Clipboard, {
+			value: 'copy'
+		});
+		const trigger = vm.$el;
+		trigger.click();
+		expect(document.querySelector('.vc-message')).to.exist;
+
+		destroyVM(vm);
 	});
 });

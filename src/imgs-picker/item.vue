@@ -4,10 +4,11 @@
 		class="vc-imgs-picker-item"
 	>
 		<slot :it="it">
-			<div
-				v-if="typeof it !== 'object'"
-				:style="{backgroundImage: `url('${it}')`}"
+			<vc-img 
+				v-if="typeof it !== 'object'" 
+				:src="it" 
 				:class="imgClassName"
+				fit="cover"
 				class="vc-imgs-picker-item__img"
 				@click="handlePreview"
 			/>
@@ -39,11 +40,13 @@
 
 <script>
 import Icon from '../icon/index';
+import Img from '../img';
 
 export default {
 	name: 'vc-imgs-picker-item',
 	components: {
 		'vc-icon': Icon,
+		'vc-img': Img
 	},
 	props: {
 		imgClassName: [String, Object, Array],
@@ -79,7 +82,7 @@ export default {
 
 <style lang="scss">
 
-@import '../style/index.scss';
+@import '../style/vars.scss';
 @include block(vc-imgs-picker-item) {
 	position: relative;
 	display: flex;

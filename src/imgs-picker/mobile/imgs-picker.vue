@@ -11,15 +11,16 @@
 					:it="item"
 					name="image"
 				>
-					<div
-						v-if="typeof item !== 'object'"
-						:style="{backgroundImage: `url('${item}')`}"
+					<vc-img 
+						v-if="typeof item !== 'object'" 
+						:src="item" 
 						:class="imgClassName"
+						fit="cover"
 						class="vcm-imgs-picker__img"
 						@click="handlePreview($event, index)"
 					/>
 					<div v-else :class="imgClassName" class="vcm-imgs-picker__img">
-						<vc-spin v-if="typeof item.status === 'undefined'"/>
+						<vc-spin v-if="typeof item.status === 'undefined'" />
 						<div v-else-if="item.status == 0" style="padding: 5px">
 							上传失败
 						</div>
@@ -52,7 +53,7 @@
 					:class="[uploadClassName, boxClassName]"
 					class="vcm-imgs-picker__upload"
 				>
-					<vc-icon type="plus" style="font-size: 30px" />
+					<vc-icon type="mini-plus" style="font-size: 30px" />
 				</div>
 			</slot>
 		</vc-upload>
@@ -64,13 +65,15 @@ import BasicMixin from '../basic-mixin';
 import Upload from '../../upload/index';
 import Icon from '../../icon/index';
 import Spin from '../../spin/index';
+import Img from '../../img';
 
 export default {
 	name: "vc-imgs-picker",
 	components: {
 		'vc-upload': Upload,
 		'vc-icon': Icon,
-		'vc-spin': Spin
+		'vc-spin': Spin,
+		'vc-img': Img
 	},
 	mixins: [BasicMixin],
 	props: {
@@ -86,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/index.scss';
+@import '../../style/vars.scss';
 
 
 

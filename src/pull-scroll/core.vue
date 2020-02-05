@@ -1,6 +1,6 @@
 <template>
-	<div ref="target">
-		<slot/>
+	<div ref="target" class="vc-pull-scroll-content">
+		<slot />
 	</div>
 </template>
 

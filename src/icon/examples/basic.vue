@@ -1,8 +1,12 @@
 <template>
 	<div>
 		<h1>点击图标复制</h1>
-		<h1 @click="handleShuffle">乱序测试: <vc-icon :type="items[0]" /></h1>
-		<h2 @click="handleClick">点我切换 prefix: {{ mobile ? 'vcm-' : 'vc-' }}</h2>
+		<h1 @click="handleShuffle">
+			乱序测试: <vc-icon :type="items[0]" />
+		</h1>
+		<h2 @click="handleClick">
+			点我切换 prefix: {{ mobile ? 'vcm-' : 'vc-' }}
+		</h2>
 		<div class="vc-icon-basic">
 			<!-- index 仅用于乱序测试 -->
 			<vc-clipboard v-for="(item, index) in items" :key="index" :value="`<vc${m}-icon type=&quot;${item}&quot; />`">
@@ -43,9 +47,9 @@ export default {
 	mounted() {
 		Promise.all([
 			IconManager.basicStatus,
-			IconManager.load('//at.alicdn.com/t/font_1096960_mfllg2fv23r.js'),
-			IconManager.load('//at.alicdn.com/t/font_1096957_mlwz0ycyaln.js'),
-			IconManager.load('//at.alicdn.com/t/font_1169912_pa6aa8abxnr.js')
+			IconManager.load('//at.alicdn.com/t/font_1169912_ith92i2hims.js'),
+			IconManager.load('//at.alicdn.com/t/font_1096960_8zo6tsnmj3p.js'),
+			IconManager.load('//at.alicdn.com/t/font_1096957_cypkws8poed.js')
 		]).then(() => {
 			this.items = Object.keys(IconManager.icons);
 			console.log(1);

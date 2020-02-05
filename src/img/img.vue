@@ -1,10 +1,12 @@
 <template>
 	<div class="vc-img">
 		<slot v-if="isLoading" name="placeholder">
-			<div :class="{ 'is-auto': isAuto }" :style="pStyle" class="vc-img__placeholder"/>
+			<div :class="{ 'is-auto': isAuto }" :style="pStyle" class="vc-img__placeholder" />
 		</slot>
 		<slot v-else-if="isError" name="error">
-			<div class="vc-img__error">加载失败</div>
+			<div class="vc-img__error">
+				加载失败
+			</div>
 		</slot>
 		<img
 			v-else
@@ -120,9 +122,9 @@ export default {
 					width,
 					height
 				},
-				wrapperW: this.scroller.clientWidth,
+				wrapperW: this.scroller && this.scroller.clientWidth,
 				// TODO
-				wrapperH: this.scroller.clientHeight,
+				wrapperH: this.scroller && this.scroller.clientHeight,
 			});
 
 			if (w && h) {
@@ -183,11 +185,11 @@ export default {
 			}
 		},
 		removeLazyLoadListener() {
-			if (!this.scroller || !this._lazyLoadHandler) return;
-			scroller.removeEventListener('scroll', this._lazyLoadHandler);
+			if (!this.scroller || !this.handleLazyLoad) return;
+			scroller.removeEventListener('scroll', this.handleLazyLoad);
 
 			this.scroller = null;
-			this._lazyLoadHandler = null;
+			this.handleLazyLoad = null;
 		},
 		
 		hackFit(fit) {
@@ -222,7 +224,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../style/index.scss';
+@import '../style/vars.scss';
 
 %size {
 	width: 100%;
@@ -233,7 +235,8 @@ export default {
 	position: relative;
 	display: inline-block;
 	overflow: hidden;
-
+	vertical-align: top;
+	
 	@include element(placeholder) {
 		@extend %size;
 		background: #f5f7fa;
@@ -263,7 +266,7 @@ export default {
 
 	@include element(inner) {
 		@extend %size;
-		vertical-align: top;
+		display: block;
 
 		@include when(center) {
 			position: relative;

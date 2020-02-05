@@ -21,8 +21,12 @@ export default {
 	},
 	props: {
 		...Core.props,
+		enhancer: Function,
 		itemClassName: String,
-		enhancer: Function
+		rowStyle: {
+			type: Object,
+			default: () => ({})
+		}
 	},
 	data() {
 		return {

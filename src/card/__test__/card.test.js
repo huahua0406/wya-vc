@@ -1,10 +1,24 @@
-import Vue from 'vue';
-// import Wrapper from '..';
+import { createComponent, destroyVM } from "@tests/helper";
+import Card from '../index';
 
-describe('Tpl', () => {
-	test('测试传递属性', () => {
-		expect(1).toBe(1);
-		// const component = createComponent(Wrapper, {});
-		// expect(typeof component).toBe('object');
+describe('Card', () => {
+
+	it("basic", () => {
+		expect(typeof Card).to.equal("object");
+
+		const vm = createComponent(Card, {});
+		expect(typeof vm).to.equal("object");
+
+		destroyVM(vm);
+	});
+
+	it("border", () => {
+		const vm = createComponent(Card, {
+			border: true
+		});
+
+		expect(vm.$el.classList.contains("is-border")).to.equal(true);
+
+		destroyVM(vm);
 	});
 });

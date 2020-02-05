@@ -10,7 +10,7 @@
 			:style="{ height: height ? `${height}px` : 'auto' }"
 			class="vcm-carousel__wrapper"
 		>
-			<slot/>
+			<slot />
 		</div>
 		<ul
 			v-if="dots"
@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/index.scss';
+@import '../../style/vars.scss';
 
 @include block(vcm-carousel) {
 	position: relative;
@@ -125,14 +125,20 @@ export default {
 
 		@include when(horizontal) {
 			bottom: 0;
-			left: 50%;
-			transform: translateX(-50%);
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
 		}
 
 		@include when(vertical) {
 			right: 0;
-			top: 50%;
-			transform: translateY(-50%);
+			top: 0;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			flex-wrap: wrap;
 		}
 
 		@include when(outside) {
